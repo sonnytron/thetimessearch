@@ -15,6 +15,10 @@ The purpose of this app is to take advantage of the [New York Times Search ](htt
 * [ ] User can tap on the search result to display a full text of article  
 * [ ] User can scroll down and open infinite results
 
+## Optional Stories
+
+* [ ] User can enter a search query in the action bar instead of using an EditText field. I forgot I implemented this.
+
 GIF created with [EZGif](http://ezgif.com/video-to-gif/db6e243d4a.mp4).
 
 ## Notes
