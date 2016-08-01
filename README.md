@@ -1,5 +1,5 @@
 # thetimessearch
-This is CodePath Week 2 Project to search NY Times API
+This is CodePath Week 2 Project to search NY Times API.
 
 ![Times Search Gif](/timesapp.gif "An animated image showing use.")
 
@@ -24,3 +24,8 @@ The biggest challenge was implementing a data passing from one activity to anoth
 ## Time required to complete
 
 Overall, I have spent about 9.5 hours on this project. I feel that the good amount of time to commit would've been 12 to 15 hours.  
+
+## Open Source Libraries used
+
+- [Android Async HTTP](https://github.com/loopj/android-async-http) - Simple asynchronous HTTP requests with JSON parsing
+- [Picasso](http://square.github.io/picasso/) - Image loading and caching library for Android
