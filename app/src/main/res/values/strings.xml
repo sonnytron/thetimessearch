@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">NYTimesSearch</string>
+    <string name="action_settings">Settings</string>
+    <string name="book_search">Search</string>
+    <string name="book_query">Enter a title, author</string>
+    <string name="date_button_title">Select starting date: </string>
+    <string name="date_textview_hint">No date</string>
+    <string name="sort_prompt">Sort by: </string>
+    <string name="filter_title">Select type of articles: </string>
+    <string name="arts_filter">Arts</string>
+    <string name="fashion_filter">Fashion and Style</string>
+    <string name="sports_filter">Sports</string>
+    <string name="clear_filters">Clear Filters</string>
+    <string name="apply_filters">Apply Filters</string>
+    <string name="date_picker_title">Select a starting date: </string>
+</resources>

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/date_layout"
+        android:layout_marginTop="32dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:layout_marginLeft="8dp"
+            android:layout_centerVertical="true"
+            android:id="@+id/date_button"
+            android:text="@string/date_button_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/date_selected_textview"
+            android:text="@string/date_textview_hint"
+            android:layout_centerVertical="true"
+            android:textSize="18dp"
+            android:layout_toRightOf="@+id/date_button"
+            android:layout_marginLeft="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </RelativeLayout>
+
+    <Spinner
+        android:layout_below="@+id/date_layout"
+        android:entries="@array/sort_array"
+        android:id="@+id/sort_spinner"
+        android:layout_marginTop="16dp"
+        android:prompt="@string/sort_prompt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <RelativeLayout
+        android:id="@+id/checkbox_layout"
+        android:layout_below="@+id/sort_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp">
+        <TextView
+            android:id="@+id/filters_title"
+            android:text="@string/filter_title"
+            android:textStyle="bold"
+            android:textSize="18dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <CheckBox
+            android:id="@+id/arts_checkbox"
+            android:text="@string/arts_filter"
+            android:layout_below="@+id/filters_title"
+            android:layout_marginTop="8dp"
+            android:textSize="18dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <CheckBox
+            android:id="@+id/fashion_checkbox"
+            android:layout_below="@+id/arts_checkbox"
+            android:layout_marginTop="8dp"
+            android:textSize="18dp"
+            android:text="@string/fashion_filter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <CheckBox
+            android:id="@+id/sports_checkbox"
+            android:layout_below="@+id/fashion_checkbox"
+            android:textSize="18dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/sports_filter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_margin="8dp"
+        android:layout_below="@+id/checkbox_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/clear_filters_button"
+            android:text="@string/clear_filters"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <Button
+            android:id="@+id/apply_filters_button"
+            android:text="@string/apply_filters"
+            android:layout_marginTop="16dp"
+            android:layout_below="@+id/clear_filters_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>
