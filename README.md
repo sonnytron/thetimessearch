@@ -7,9 +7,19 @@ This is CodePath Week 2 Project to search NY Times API
 
 The purpose of this app is to take advantage of the [New York Times Search ](http://developer.nytimes.com/). The application takes advantage of search filters along with AsyncHttpRequestHandler, a RecyclerView which uses a Grid Layout.  
 
-## Completed Stories  
+## User Stories
 
-As of 12:37 AM CST, all required stories have been submitted. Endless scrolling and filters work properly.
+* [ ] User can search for news article by submitting a query.
+* [ ] User can click on "Filter" which has a Settings icon to select **advanced search options**
+* [ ] User can configure advanced search filters such as: Arts, Fashion & Style, Sports
+* [ ] User can tap on the search result to display a full text of article  
+* [ ] User can scroll down and open infinite results
+
+GIF created with [EZGif](http://ezgif.com/video-to-gif/db6e243d4a.mp4).
+
+## Notes
+
+The biggest challenge was implementing a data passing from one activity to another. The basic walkthrough gets you to a functional API call, but you have to really set aside the time to know how you're going to organize your data from one view to another.  
 
 ## Time required to complete
 
