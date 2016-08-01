@@ -121,6 +121,9 @@ public class SearchActivity extends AppCompatActivity implements ArticleHolder.a
             @Override
             public boolean onQueryTextSubmit(String query) {
                 if (query.length() > 0) {
+                    articles = new ArrayList<>();
+                    adapter.setArticles(articles);
+                    adapter.notifyDataSetChanged();
                     mQuery = query;
                     AsyncHttpClient client = new AsyncHttpClient();
 
@@ -230,6 +233,9 @@ public class SearchActivity extends AppCompatActivity implements ArticleHolder.a
     }
 
     public void onArticleSearch(View view) {
+        articles = new ArrayList<>();
+        adapter.setArticles(articles);
+        adapter.notifyDataSetChanged();
         mQuery = bookQuery.getText().toString();
         AsyncHttpClient client = new AsyncHttpClient();
 
