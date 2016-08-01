@@ -9,6 +9,8 @@ The purpose of this app is to take advantage of the [New York Times Search ](htt
 
 ## Completed Stories  
 
-As of 12:13 AM, all but one user story has been implemented with really terrible aesthetics. I'm very ashamed of this implementation but I had set backs on Sunday as I had some personal delays on Sunday which prevented me from spending the necessary time needed.  
+As of 12:37 AM CST, all required stories have been submitted. Endless scrolling and filters work properly.
 
-The missing story is: Infinite Scrolling
+## Time required to complete
+
+Overall, I have spent about 9.5 hours on this project. I feel that the good amount of time to commit would've been 12 to 15 hours.  
