@@ -142,7 +142,7 @@ public class FiltersActivity extends FragmentActivity implements DatePickerFragm
             public void onClick(View v) {
                 SearchFilters searchFilters = new SearchFilters();
                 Intent data = new Intent();
-                if (mNewsDeskStrings.size() > 0) {
+                if (mNewsDeskStrings != null) {
                     searchFilters.setNewsDeskParams(mNewsDeskStrings);
                 }
                 if (fromDate != null) {

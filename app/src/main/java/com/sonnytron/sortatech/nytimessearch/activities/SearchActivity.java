@@ -29,6 +29,7 @@ import com.sonnytron.sortatech.nytimessearch.ArticleArrayAdapter;
 import com.sonnytron.sortatech.nytimessearch.ArticleHolder;
 import com.sonnytron.sortatech.nytimessearch.R;
 import com.sonnytron.sortatech.nytimessearch.models.Article;
+import com.sonnytron.sortatech.nytimessearch.models.EndlessScrollListener;
 import com.sonnytron.sortatech.nytimessearch.models.SearchFilters;
 
 import org.json.JSONArray;
@@ -36,6 +37,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
 
@@ -48,12 +50,15 @@ public class SearchActivity extends AppCompatActivity implements ArticleHolder.a
     ArrayList<Article> articles;
     ArticleArrayAdapter adapter;
     SearchFilters mFilters;
+    private String mQuery;
+    private int mPage;
 
     private RecyclerView mArticleRecyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mPage = 0;
         setContentView(R.layout.activity_search);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -73,8 +78,16 @@ public class SearchActivity extends AppCompatActivity implements ArticleHolder.a
         adapter = new ArticleArrayAdapter(this, articles);
 
         mArticleRecyclerView = (RecyclerView) findViewById(R.id.article_grid_recycler);
-        mArticleRecyclerView.setLayoutManager(new GridLayoutManager(getApplicationContext(), 3));
+        GridLayoutManager layoutManager = new GridLayoutManager(getApplicationContext(), 3);
+        mArticleRecyclerView.setLayoutManager(layoutManager);
         mArticleRecyclerView.setAdapter(adapter);
+
+        mArticleRecyclerView.addOnScrollListener(new EndlessScrollListener(layoutManager) {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount) {
+                getNewItems();
+            }
+        });
 //        bookGridView.setAdapter(adapter);
 //        adapter = new ArticleArrayAdapter(this, articles);
 //        bookGridView.setAdapter(adapter);
@@ -108,6 +121,7 @@ public class SearchActivity extends AppCompatActivity implements ArticleHolder.a
             @Override
             public boolean onQueryTextSubmit(String query) {
                 if (query.length() > 0) {
+                    mQuery = query;
                     AsyncHttpClient client = new AsyncHttpClient();
 
                     RequestParams params = new RequestParams();
@@ -133,7 +147,8 @@ public class SearchActivity extends AppCompatActivity implements ArticleHolder.a
                             JSONArray articleResults = null;
                             try {
                                 articleResults = response.getJSONObject("response").getJSONArray("docs");
-                                adapter.setArticles(Article.fromJSONArray(articleResults));
+                                articles = Article.fromJSONArray(articleResults);
+                                adapter.setArticles(articles);
                                 adapter.notifyDataSetChanged();
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -152,6 +167,44 @@ public class SearchActivity extends AppCompatActivity implements ArticleHolder.a
         });
 
         return true;
+    }
+
+    public void getNewItems() {
+        mPage = mPage + 1;
+        AsyncHttpClient client = new AsyncHttpClient();
+
+        RequestParams params = new RequestParams();
+        params.put("api-key", apiKey);
+        params.put("page", mPage);
+        params.put("q", mQuery);
+
+        if (mFilters != null) {
+            if (mFilters.getStartDate() != null) {
+                params.put("begin_date", mFilters.getStartDate());
+            }
+            if (mFilters.getSortString().length() > 0) {
+                params.put("sort", mFilters.getSortString());
+            }
+            if (mFilters.getNewsDeskString().length() > 0) {
+                params.put("fq", mFilters.getNewsDeskString());
+            }
+        }
+
+        client.get(baseUrl, params, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                JSONArray articleResults = null;
+                try {
+                    articleResults = response.getJSONObject("response").getJSONArray("docs");
+                    List<Article> newArticles = Article.fromJSONArray(articleResults);
+                    articles.addAll(newArticles);
+                    adapter.setArticles(articles);
+                    adapter.notifyDataSetChanged();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     @Override
