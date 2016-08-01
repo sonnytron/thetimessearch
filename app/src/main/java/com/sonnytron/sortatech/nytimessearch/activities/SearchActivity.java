@@ -45,8 +45,6 @@ public class SearchActivity extends AppCompatActivity implements ArticleHolder.a
     private static final String apiKey = "3de2a7dcd6f04f60b0982f3f85f19145";
     private static final String baseUrl = "https://api.nytimes.com/svc/search/v2/articlesearch.json";
     private final int FILTERS_CODE = 20;
-    EditText bookQuery;
-    Button buttonSearch;
     ArrayList<Article> articles;
     ArticleArrayAdapter adapter;
     SearchFilters mFilters;
@@ -71,8 +69,6 @@ public class SearchActivity extends AppCompatActivity implements ArticleHolder.a
     }
 
     public void setupViews() {
-        bookQuery = (EditText) findViewById(R.id.btnQuery);
-        buttonSearch = (Button) findViewById(R.id.btnSearch);
         articles = new ArrayList<>();
 
         adapter = new ArticleArrayAdapter(this, articles);
@@ -88,19 +84,7 @@ public class SearchActivity extends AppCompatActivity implements ArticleHolder.a
                 getNewItems();
             }
         });
-//        bookGridView.setAdapter(adapter);
-//        adapter = new ArticleArrayAdapter(this, articles);
-//        bookGridView.setAdapter(adapter);
-//        bookGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                Intent i = new Intent(getApplicationContext(), ArticleActivity.class);
-//                // get the article to display
-//                Article article = articles.get(position);
-//                i.putExtra("article", article);
-//                startActivity(i);
-//            }
-//        });
+
     }
 
     @Override
@@ -230,47 +214,6 @@ public class SearchActivity extends AppCompatActivity implements ArticleHolder.a
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    public void onArticleSearch(View view) {
-        articles = new ArrayList<>();
-        adapter.setArticles(articles);
-        adapter.notifyDataSetChanged();
-        mQuery = bookQuery.getText().toString();
-        AsyncHttpClient client = new AsyncHttpClient();
-
-        RequestParams params = new RequestParams();
-        params.put("api-key", apiKey);
-        params.put("page", 0);
-        params.put("q", mQuery);
-
-        if (mFilters != null) {
-            if (mFilters.getStartDate() != null) {
-                params.put("begin_date", mFilters.getStartDate());
-            }
-            if (mFilters.getSortString().length() > 0) {
-                params.put("sort", mFilters.getSortString());
-            }
-            if (mFilters.getNewsDeskString().length() > 0) {
-                params.put("fq", mFilters.getNewsDeskString());
-            }
-        }
-
-        client.get(baseUrl, params, new JsonHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                Log.d("DEBUG", response.toString());
-
-                JSONArray articleResults = null;
-                try {
-                    articleResults = response.getJSONObject("response").getJSONArray("docs");
-                    adapter.setArticles(Article.fromJSONArray(articleResults));
-                    adapter.notifyDataSetChanged();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
     }
 
     @Override
