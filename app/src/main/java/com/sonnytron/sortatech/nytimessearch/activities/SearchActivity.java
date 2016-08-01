@@ -230,13 +230,25 @@ public class SearchActivity extends AppCompatActivity implements ArticleHolder.a
     }
 
     public void onArticleSearch(View view) {
-        String query = bookQuery.getText().toString();
+        mQuery = bookQuery.getText().toString();
         AsyncHttpClient client = new AsyncHttpClient();
 
         RequestParams params = new RequestParams();
         params.put("api-key", apiKey);
         params.put("page", 0);
-        params.put("q", query);
+        params.put("q", mQuery);
+
+        if (mFilters != null) {
+            if (mFilters.getStartDate() != null) {
+                params.put("begin_date", mFilters.getStartDate());
+            }
+            if (mFilters.getSortString().length() > 0) {
+                params.put("sort", mFilters.getSortString());
+            }
+            if (mFilters.getNewsDeskString().length() > 0) {
+                params.put("fq", mFilters.getNewsDeskString());
+            }
+        }
 
         client.get(baseUrl, params, new JsonHttpResponseHandler() {
             @Override
